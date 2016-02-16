@@ -42,3 +42,30 @@ or follow the steps below:
 </pre>
 
 
+### Scenario
+- __Ubuntu Laptop__ with `batman-adv` connected to __Raspberry Pi 2__ over `wlan0` using Mesh Networking
+
+- on Ubuntu Laptop for *master* mode: `alfred -i wlan0 -m`
+
+- on Raspberry Pi 2 : `alfred -i wlan0 -d` (use '-d' for verbose)
+
+* On a new Terminal of Raspberry Pi-2: 
+    
+    $ cat /etc/hostname | alfred -s 100
+
+here `-s` is for send-data over the UNIX Socket
+
+* On Ubuntu Laptop in a new Terminal: 
+
+    $ alfred -r 100
+
+here `-r` is to receive data over the UNIX Socket
+
+* Data recorded will be shown in __JSON Format__ in the following way:
+
+`{"MAC Address of PI", "hostnameOfPi\x0a"}`
+
+
+### Pi into Slave Mode
+
+- In a new Terminal of Pi: `alfred -i wlan0 -M slave`
