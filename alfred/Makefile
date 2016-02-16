@@ -25,10 +25,10 @@ MANPAGE = man/alfred.8
 
 # alfred flags and options
 CFLAGS += -pedantic -Wall -W -std=gnu99 -fno-strict-aliasing -MD -MP
-LDLIBS += -lrt
+LDLIBS += -lrt -lpcap -lcap # changes made here
 
 # Turn on alfred capability dropping by default - set this to n if you don't want/need it
-export CONFIG_ALFRED_CAPABILITIES?=y
+export CONFIG_ALFRED_CAPABILITIES?=n # changes made here
 
 # disable verbose output
 ifneq ($(findstring $(MAKEFLAGS),s),s)
@@ -81,14 +81,14 @@ ifneq ($(CONFIG_ALFRED_CAPABILITIES),n)
     endif
   endif
 
-  ifeq ($(origin LIBCAP_CFLAGS) $(origin LIBCAP_LDLIBS), undefined undefined)
-    LIBCAP_NAME ?= libcap
-    ifeq ($(shell $(PKG_CONFIG) --modversion $(LIBCAP_NAME) 2>/dev/null),)
-      $(error No $(LIBCAP_NAME) development libraries found!)
-    endif
-    LIBCAP_CFLAGS += $(shell $(PKG_CONFIG) --cflags $(LIBCAP_NAME))
-    LIBCAP_LDLIBS +=  $(shell $(PKG_CONFIG) --libs $(LIBCAP_NAME))
-  endif
+#  ifeq ($(origin LIBCAP_CFLAGS) $(origin LIBCAP_LDLIBS), undefined undefined)
+#    LIBCAP_NAME ?= libcap
+#    ifeq ($(shell $(PKG_CONFIG) --modversion $(LIBCAP_NAME) 2>/dev/null),)
+#      $(error No $(LIBCAP_NAME) development libraries found!)
+#    endif
+#    LIBCAP_CFLAGS += $(shell $(PKG_CONFIG) --cflags $(LIBCAP_NAME))
+#    LIBCAP_LDLIBS +=  $(shell $(PKG_CONFIG) --libs $(LIBCAP_NAME))
+#  endif
   CFLAGS += $(LIBCAP_CFLAGS)
   CPPFLAGS += -DCONFIG_ALFRED_CAPABILITIES
   LDLIBS += $(LIBCAP_LDLIBS)
