@@ -69,5 +69,6 @@ here `-r` is to receive data over the UNIX Socket
 ### Pi into Slave Mode
 
 - In a new Terminal of Pi: `alfred -i wlan0 -M slave`
+
 #### ALFRED Repository
 cloned from [FFNORD](https://github.com/ffnord/alfred)
